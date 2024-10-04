@@ -4,8 +4,10 @@ import React from "react";
 function files() {
   return (
     <div>
-      files
-      <UserButton />
+      Files
+      <div>
+        <UserButton />
+      </div>
     </div>
   );
 }
