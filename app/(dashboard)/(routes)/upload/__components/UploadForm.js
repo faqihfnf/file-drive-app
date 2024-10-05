@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AlertMsg from "./AlertMsg";
 import { CloudUpload, FileText, Shield } from "lucide-react";
+import FilePreview from "./FilePreview";
 
 function UploadForm() {
   const [file, setFile] = useState();
@@ -41,7 +42,7 @@ function UploadForm() {
         </label>
       </div>
       {errorMsg ? <AlertMsg message={errorMsg} /> : null}
-
+      {file ? <FilePreview file={file} removeFile={() => setFile(null)} /> : null}
       <div className="flex  items-center justify-center">
         <button
           disabled={!file || errorMsg}
