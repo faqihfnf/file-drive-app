@@ -15,13 +15,13 @@ function SideNav() {
       id: 2,
       name: "Files",
       icon: FileText,
-      path: "/upload",
+      path: "/files",
     },
     {
       id: 3,
       name: "Upgrade",
       icon: Shield,
-      path: "/upload",
+      path: "/upgrade",
     },
   ];
 

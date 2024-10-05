@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
+import AlertMsg from "./AlertMsg";
+import { CloudUpload, FileText, Shield } from "lucide-react";
 
 function UploadForm() {
+  const [file, setFile] = useState();
+  const [errorMsg, setErrorMsg] = useState();
+  const onFileSelect = (file) => {
+    console.log(file);
+    if (file && file.size > 2000000) {
+      console.log("Size should be less than 2MB");
+      setErrorMsg("Size should be less than 2MB");
+      return;
+    }
+    setErrorMsg(null);
+    setFile(file);
+  };
   return (
-    <div>
+    <div className="text-center ">
       <div class="flex items-center justify-center m-10">
         <label
           for="dropzone-file"
@@ -21,10 +35,21 @@ function UploadForm() {
             <p class="mb-2 text-lg md:text-3xl text-slate-700 dark:text-slate-700">
               <span class="font-semibold">Click to upload</span> or <span className="text-blue-700">drag</span> and <span className="text-cyan-700">drop</span>
             </p>
-            <p class="text-xs md:text-lg text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+            <p class="text-xs md:text-lg text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (Max Size : 2 MB)</p>
           </div>
-          <input id="dropzone-file" type="file" class="hidden" />
+          <input id="dropzone-file" type="file" class="hidden" onChange={(event) => onFileSelect(event.target.files[0])} />
         </label>
+      </div>
+      {errorMsg ? <AlertMsg message={errorMsg} /> : null}
+
+      <div className="flex  items-center justify-center">
+        <button
+          disabled={!file || errorMsg}
+          className=" flex items-center justify-center gap-4 md:w-[20%] w-[25%] rounded-md bg-indigo-600 px-12 py-3 text-2xl font-medium text-white shadow hover:bg-indigo-700 focus:outline-none focus:ring active:bg-indigo-600 disabled:bg-slate-400 disabled:cursor-not-allowed"
+        >
+          <CloudUpload size={40} />
+          Upload
+        </button>
       </div>
     </div>
   );
