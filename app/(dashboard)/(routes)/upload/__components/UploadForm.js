@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import AlertMsg from "./AlertMsg";
-import { CloudUpload, FileText, Shield } from "lucide-react";
+import { CloudUpload } from "lucide-react";
 import FilePreview from "./FilePreview";
 
-function UploadForm() {
+function UploadForm({ uploadBtnClick }) {
   const [file, setFile] = useState();
   const [errorMsg, setErrorMsg] = useState();
   const onFileSelect = (file) => {
@@ -47,6 +47,7 @@ function UploadForm() {
         <button
           disabled={!file || errorMsg}
           className=" flex items-center justify-center gap-4 md:w-[20%] w-[25%] rounded-md bg-indigo-600 px-12 py-3 text-2xl font-medium text-white shadow hover:bg-indigo-700 focus:outline-none focus:ring active:bg-indigo-600 disabled:bg-slate-400 disabled:cursor-not-allowed"
+          onClick={() => uploadBtnClick(file)}
         >
           <CloudUpload size={40} />
           Upload
