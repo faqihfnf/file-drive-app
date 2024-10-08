@@ -1,37 +1,56 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import UploadForm from "./__components/UploadForm";
 import { app } from "@/firebaseConfig";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import Toast from "./__components/Toast";
 
 function Upload() {
+  const [progress, setProgress] = useState(0);
+  const [showToast, setShowToast] = useState(false);
   const storage = getStorage(app);
+
   const uploadFile = (file) => {
     const metadata = {
-      contentType: "file.type",
+      contentType: file.type,
     };
 
-    // Upload file and metadata to the object 'images/mountains.jpg'
     const storageRef = ref(storage, "file-upload/" + file.name);
-    const uploadTask = uploadBytesResumable(storageRef, file, file.type);
+    const uploadTask = uploadBytesResumable(storageRef, file, metadata);
+
     uploadTask.on("state_changed", (snapshot) => {
-      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       console.log("Upload is " + progress + "% done");
+      setProgress(progress);
 
-      // Upload completed successfully, now we can get the download URL
-      progress == 100 &&
+      if (progress === 100) {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log("File available at", downloadURL);
+          setShowToast(true);
         });
+      }
     });
   };
+
+  useEffect(() => {
+    if (showToast) {
+      const timer = setTimeout(() => {
+        setShowToast(false);
+        setProgress(0);
+        window.location.reload();
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [showToast]);
+
   return (
     <div>
       <h2 className="m-5 text-3xl text-center sm:text-5xl">
         Start <strong className="text-blue-700">Uploading </strong>Files here and <strong className="text-cyan-700">Share </strong>it with <strong className="text-red-700">Password</strong>
       </h2>
-      <UploadForm uploadBtnClick={(file) => uploadFile(file)} />
+      <UploadForm uploadBtnClick={uploadFile} progress={progress} />
+      {showToast && <Toast />}
     </div>
   );
 }
