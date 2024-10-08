@@ -23,9 +23,6 @@ function UploadForm({ uploadBtnClick, progress }) {
 
   return (
     <div className="text-center">
-      {/* Tampilkan toast jika showToast true */}
-      {/* {showToast && <Toast />} */}
-
       <div className="flex items-center justify-center m-10">
         <label
           htmlFor="dropzone-file"
@@ -42,9 +39,9 @@ function UploadForm({ uploadBtnClick, progress }) {
               />
             </svg>
             <p className="mb-2 text-lg md:text-3xl text-slate-700 dark:text-slate-700">
-              <span className="font-semibold">Klik untuk upload</span> atau <span className="text-blue-700">seret</span> dan <span className="text-cyan-700">jatuhkan</span>
+              <span className="font-semibold">Click to upload</span> or <span className="text-blue-700">Drag</span> and <span className="text-cyan-700">Drop</span>
             </p>
-            <p className="text-xs md:text-lg text-gray-500 dark:text-gray-400">Format yang didukung: SVG, PNG, JPG, GIF (Ukuran Maks: 2MB)</p>
+            <p className="text-xs md:text-lg text-gray-500 dark:text-gray-400">JPG, SVG, PNG, JPG or GIF (Max Size : 2MB)</p>
           </div>
           <input id="dropzone-file" type="file" className="hidden" onChange={(event) => onFileSelect(event.target.files[0])} />
         </label>
