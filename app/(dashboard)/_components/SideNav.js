@@ -2,6 +2,7 @@
 import { CloudUpload, FileText, Shield } from "lucide-react";
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 function SideNav() {
   const navList = [
@@ -33,10 +34,12 @@ function SideNav() {
       </div>
       <div className="flex flex-col float-left w-full">
         {navList.map((item, index) => (
-          <button className={`flex items-center gap-2 p-4 w-full hover:bg-indigo-500 hover:text-white rounded-sm ${activeIndex === index ? "bg-slate-200 text-indigo-500" : null}`} onClick={() => setActiveIndex(index)}>
-            <item.icon />
-            <h2>{item.name}</h2>
-          </button>
+          <Link href={item.path} key={item.id}>
+            <button key={index} className={`flex items-center gap-2 p-4 w-full hover:bg-indigo-500 hover:text-white rounded-sm ${activeIndex === index ? "bg-slate-200 text-indigo-500" : null}`} onClick={() => setActiveIndex(index)}>
+              <item.icon />
+              <h2>{item.name}</h2>
+            </button>
+          </Link>
         ))}
       </div>
     </div>

@@ -41,8 +41,8 @@ function FileShareForm({ file, onPasswordSave }) {
   };
   return (
     file && (
-      <div className="flex flex-col gap-2">
-        <div>
+      <div className="flex flex-col gap-5 mt-2">
+        <div className="mb-5">
           <label className="text-[14px] text-gray-500">Short Url</label>
           <div className="flex gap-5 p-2 border rounded-md justify-between">
             <input
@@ -76,7 +76,7 @@ function FileShareForm({ file, onPasswordSave }) {
               />
             </div>
             <button
-              className="p-2 bg-primary text-white
+              className="p-2 w-[100px] bg-primary text-white
                 rounded-md disabled:bg-gray-300 hover:bg-blue-600"
               disabled={password?.length < 3}
               onClick={() => onPasswordSave(password)}

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
 import { app } from "@/firebaseConfig";
 import Link from "next/link";
 import { ArrowLeftSquare } from "lucide-react";
@@ -27,7 +27,11 @@ function FilePreview({ params }) {
     }
   };
 
-  const onPasswordSubmit = (password) => {
+  const onPasswordSave = async (password) => {
+    const docRef = doc(db, "uploadedFile", params?.fileId);
+    await updateDoc(docRef, {
+      password: password,
+    });
     // if (password === file?.password) {
     //   console.log("correct password");
     // } else {
@@ -41,7 +45,7 @@ function FilePreview({ params }) {
         <ArrowLeftSquare size={30} />
         Go Back{" "}
       </Link>
-      <div className="grid grid-cols-1 gap-4 mt-5 md:grid-cols-2">
+      <div className="grid h-[60vh] grid-cols-1 gap-4 mt-5 md:grid-cols-2">
         <FileInfo file={file} />
         <FileShareForm file={file} onPasswordSave={(password) => onPasswordSave(password)} />
       </div>

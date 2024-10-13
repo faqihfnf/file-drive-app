@@ -14,7 +14,7 @@ function FileInfo({ file }) {
      flex justify-center m-4 flex-col items-center p-2 rounded-lg
      border-blue-200"
       >
-        <Image src={fileType == "image" ? file?.fileUrl : "/file.png"} width={200} height={200} alt="logo" className="h-[200px] rounded-md object-contain " />
+        <Image src={fileType == "image" ? file?.fileUrl : "/file.png"} width={500} height={500} alt="logo" className="h-[200px] rounded-md object-contain " />
         <div className="">
           <h2>{file.fileName}</h2>
           <h2 className="text-gray-400 text-[13px]">
