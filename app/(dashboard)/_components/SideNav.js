@@ -25,7 +25,7 @@ function SideNav() {
     },
   ];
 
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState();
   return (
     <div className="shawdow-sm h-full border-r">
       <div className="p-5 border-b">
