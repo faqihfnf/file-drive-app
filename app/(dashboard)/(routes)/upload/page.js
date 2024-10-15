@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import UploadForm from "./__components/UploadForm";
+// import { app } from "@/../../firebaseConfig";
 import { app } from "@/firebaseConfig";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import Toast from "./__components/Toast";
@@ -52,7 +53,7 @@ function Upload() {
       userName: user?.fullName,
       password: "",
       id: docId,
-      shortUrl: process.env.NEXT_PUBLIC_BASE_URL + docId,
+      shortUrl: process.env.NEXT_PUBLIC_BASE_URL + "/file/" + docId,
     });
     setFileDocId(docId);
   };

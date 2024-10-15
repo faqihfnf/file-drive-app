@@ -1,6 +1,6 @@
 import { Copy, CopyIcon } from "lucide-react";
 import React, { useContext, useState } from "react";
-// import GlobalApi from "./../../../../../_utils/GlobalApi";
+import GlobalApi from "./../../../../../_utils/GlobalApi";
 import { useUser } from "@clerk/nextjs";
 import Toast from "../../../../../_components/Toast";
 
@@ -10,27 +10,27 @@ function FileShareForm({ file, onPasswordSave }) {
   const [email, setEmail] = useState("");
   const [toast, setToast] = useState();
   const { user } = useUser();
-  // const sendEmail = () => {
-  //   setToast({
-  //     status: "Info",
-  //     msg: "Sending Email...!",
-  //   });
-  //   const data = {
-  //     emailToSend: email,
-  //     userName: user?.fullName,
-  //     fileName: file.fileName,
-  //     fileSize: file.fileSize,
-  //     fileType: file.fileType,
-  //     shortUrl: file?.shortUrl,
-  //   };
-  //   // GlobalApi.SendEmail(data).then((resp) => {
-  //   //   console.log(resp);
-  //   //   setToast({
-  //   //     status: "success",
-  //   //     msg: "Email Sent Successfully!",
-  //   //   });
-  //   // });
-  // };
+  const sendEmail = () => {
+    setToast({
+      status: "Info",
+      msg: "Sending Email...!",
+    });
+    const data = {
+      emailToSend: email,
+      userName: user?.fullName,
+      fileName: file.fileName,
+      fileSize: file.fileSize,
+      fileType: file.fileType,
+      shortUrl: file?.shortUrl,
+    };
+    GlobalApi.SendEmail(data).then((resp) => {
+      console.log(resp);
+      setToast({
+        status: "success",
+        msg: "Email Sent Successfully!",
+      });
+    });
+  };
 
   const onCopyClick = () => {
     navigator.clipboard.writeText(file.shortUrl);
@@ -101,7 +101,7 @@ function FileShareForm({ file, onPasswordSave }) {
             className="p-2 disabled:bg-gray-300
                  bg-primary text-white hover:bg-blue-600
                 w-full mt-2 rounded-md"
-            disabled={email?.length < 3}
+            // disabled={email?.length < 3}
             onClick={() => sendEmail()}
           >
             Send Email
