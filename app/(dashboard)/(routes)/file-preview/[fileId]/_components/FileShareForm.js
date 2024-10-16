@@ -24,7 +24,7 @@ function FileShareForm({ file, onPasswordSave }) {
       shortUrl: file?.shortUrl,
     };
     GlobalApi.SendEmail(data).then((resp) => {
-      console.log(resp);
+      // console.log(resp);
       setToast({
         status: "success",
         msg: "Email Sent Successfully!",

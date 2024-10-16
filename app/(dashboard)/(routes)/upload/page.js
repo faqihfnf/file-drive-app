@@ -1,10 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import UploadForm from "./__components/UploadForm";
-// import { app } from "@/../../firebaseConfig";
 import { app } from "@/firebaseConfig";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import Toast from "./__components/Toast";
+// import Toast from "./__components/Toast";
+import Toast from "@/app/_components/Toast";
 import { getFirestore, setDoc, doc } from "firebase/firestore";
 import { useUser } from "@clerk/nextjs";
 import { generateRandomString } from "@/app/_utils/GenerateRandomString";
@@ -15,7 +15,8 @@ function Upload() {
   const [progress, setProgress] = useState(0);
   const router = useRouter();
   const [fileDocId, setFileDocId] = useState();
-  const [showToast, setShowToast] = useState(false);
+  const [toast, setToast] = useState(false);
+  // const [toast, setToast] = useState(false);
   const storage = getStorage(app);
   const db = getFirestore(app);
 
@@ -36,7 +37,10 @@ function Upload() {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log("File available at", downloadURL);
           saveInfo(file, downloadURL);
-          setShowToast(true);
+          setToast({
+            status: "Success",
+            msg: "Upload Successfull",
+          });
         });
       }
     });
@@ -59,23 +63,24 @@ function Upload() {
   };
 
   useEffect(() => {
-    if (showToast && fileDocId) {
+    if (toast && fileDocId) {
       const timer = setTimeout(() => {
-        setShowToast(false);
+        setToast(false);
         setProgress(0);
         router.push("/file-preview/" + fileDocId);
       }, 2000);
 
       return () => clearTimeout(timer);
     }
-  }, [showToast, fileDocId]);
+  }, [toast, fileDocId]);
   return (
     <div>
       <h2 className="m-5 text-3xl text-center sm:text-5xl">
         Start <strong className="text-blue-700">Uploading </strong>Files here and <strong className="text-cyan-700">Share </strong>it with <strong className="text-red-700">Password</strong>
       </h2>
       <UploadForm uploadBtnClick={uploadFile} progress={progress} />
-      {showToast && <Toast />}
+      {/* {toast && <Toast />} */}
+      {toast?.status ? <Toast toast={toast} closeToast={() => setToast(null)} /> : null}
     </div>
   );
 }

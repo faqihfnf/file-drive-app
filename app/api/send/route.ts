@@ -4,10 +4,6 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// export async function GET() {
-//   return NextResponse.json({ message: "GET request received" });
-// }
-
 export async function POST(req) {
   const response = await req.json();
   try {

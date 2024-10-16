@@ -41,9 +41,9 @@ function FilePreview({ params }) {
 
   return (
     <div className="py-10 px-20">
-      <Link href="/upload" className="flex gap-3">
-        <ArrowLeftSquare size={30} />
-        Go Back{" "}
+      <Link href="/upload" className="flex items-center gap-2 ml-4">
+        <ArrowLeftSquare size={30} className=" hover:text-indigo-500" />
+        <p className="text-xl hover:text-indigo-500">Back to Upload{""}</p>
       </Link>
       <div className="grid h-[60vh] grid-cols-1 gap-4 mt-5 md:grid-cols-2">
         <FileInfo file={file} />
