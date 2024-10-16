@@ -101,7 +101,7 @@ function FileShareForm({ file, onPasswordSave }) {
             className="p-2 disabled:bg-gray-300
                  bg-primary text-white hover:bg-blue-600
                 w-full mt-2 rounded-md"
-            // disabled={email?.length < 3}
+            disabled={email?.length < 5 || !email.includes("@")}
             onClick={() => sendEmail()}
           >
             Send Email
